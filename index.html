@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NoStressStudying</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">  
+  </head>
+  <body>
+    <!-- Code for header -->
+    <header>
+      <a id="logo" href="#intro"><h2>NoStress Studying</h2></a>
+      <nav>
+        <ul>
+          <li>
+            <a href="#timers">Timers</a>
+          </li>
+          <li>
+            <a href="#todo">To-do's / Notes</a>
+          </li>
+          <li>
+            <a href="#videos">Study Videos</a>
+          </li>
+          <li>
+            <a href="#quotes">Pick-Me-Up Quotes</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Code for intro part -->
+    <div id="intro" class="container-intro">
+      <div class="intro-text">
+        <h1>Welcome to NoStress Studying</h1>
+        <p>
+          Your all in one study app that allows you to only have one site open
+          to cover all of your studying needs. Find many different videos to
+          listen to, set your own timers, or use our built in to-do list...all in one
+          place!
+        </p>
+      </div>
+    </div>
+
+    <!-- Code for the timer -->
+    <div id="timers" class="container-timers">
+      <h1>Study Timers</h1>
+      <p>
+        Here you can select the time you would like to work for and the time you
+        would like to rest for, good luck studying away!
+      </p>
+      <div class="container-timers-main">
+        <div class="time-input">
+          <label>Enter Work Time:</label>
+          <input
+            type="text"
+            placeholder="Min"
+            id="workMin"
+            autocomplete="off"
+          />
+          <span>:</span>
+          <input
+            type="text"
+            placeholder="Sec"
+            id="workSec"
+            autocomplete="off"
+          />
+          <label>Enter Rest Time:</label>
+          <input
+            type="text"
+            placeholder="Min"
+            id="restMin"
+            autocomplete="off"
+          />
+          <span>:</span>
+          <input
+            type="text"
+            placeholder="Sec"
+            id="restSec"
+            autocomplete="off"
+          />
+          <label># of Cycles:</label>
+          <input type="text" id="cyclesInput" />
+          <button id="setTimerBtn">Set Timer</button>
+        </div>
+        <div class="timer-display">
+          <div id="work-timer" class="timer-output">
+            <h2>Work Timer</h2>
+            <span id="work-timer-min">00</span>
+            <span>:</span>
+            <span id="work-timer-sec">00</span>
+          </div>
+          <div class="cycles">
+            <h2>Cycles Remaining</h2>
+            <span id="cycles">0</span>
+          </div>
+          <div id="rest-timer" class="timer-output">
+            <h2>Rest Timer</h2>
+            <span id="rest-timer-min">00</span>
+            <span>:</span>
+            <span id="rest-timer-sec">00</span>
+          </div>
+        </div>
+        <div class="timer-utility-container">
+          <button disabled="true" id="startBtn">Start</button>
+          <button disabled="true" id="stopBtn">Stop</button>
+          <button disabled="true" id="resetBtn">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code for the notes and todo list section -->
+    <div class="container">
+      <div id="todo" class="container-todo">
+        <h1>Your To-Do List</h1>
+        <p>
+          Place any lingering to-do's in here you may need to keep track of.
+        </p>
+        <input
+          spellcheck="true"
+          type="text"
+          id="new-todo"
+          placeholder="Add a new to-do"
+          autocomplete="off"
+        />
+        <button id="add-todo">Add</button>
+        <ul id="todo-list"></ul>
+      </div>
+
+      <div class="container-notes">
+        <h1>Notes</h1>
+        <p>
+          Jot any notes you feel necessary here, anything that comes to mind you may want to keep track of.
+        </p>
+        <textarea
+          spellcheck="true"
+          id="notes-input"
+          placeholder="Write your notes here..."
+        ></textarea>
+        <div class="notes-btn-container">
+          <button id="save-notes">Save Notes</button>
+          <button id="clear-notes">Clear</button>
+          <p id="notes-message" style="font-style: italic"></p>
+        </div>
+        <p id="lastUpdated"></p>
+      </div>
+    </div>
+
+    <!-- Notes for the study videos section -->
+    <div id="videos" class="container-videos">
+      <h1>Videos for Studying</h1>
+      <p>Here you can find any video you would like to study to, there are options of everything from music to rain noises. Pick what you like and study away. If you don't find what you like, click "For more like this".</p>
+      <div class="videos-section">
+        <details closed class="video-section-content">
+          <summary>Rain/Storm Sounds</summary>
+          <div class="video-row">
+            <iframe
+              src="https://www.youtube.com/embed/Jvgx5HHJ0qw"
+              title="Rooftop Study Room with Rain Sounds - Ambience for Studying, Relaxing"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+            <iframe
+              src="https://www.youtube.com/embed/buqt6_CjtuI"
+              title="Rain Sounds + Stream for Sleep, Focus, Studying | 4K Nature Video White Noise 10 Hours"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+            <iframe
+              src="https://www.youtube.com/embed/mPZkdNFkNps"
+              title="Rain Sound On Window with Thunder SoundsㅣHeavy Rain for Sleep, Study and Relaxation, Meditation"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+            <iframe
+              src="https://www.youtube.com/embed/RD929GWcPxo"
+              title="Glasshouse Study Room with Forest view and Large Windows  -  Rain Sounds for Focus and Relaxation"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+            <a href="https://www.youtube.com/results?search_query=rain+sounds+for+studying" class="see-more" target="_blank">For more like this...</a>
+          </div>
+        </details>        
+        <details closed class="video-section-content">
+          <summary>White Noise Sounds</summary>
+          <div class="video-row">
+            <iframe src="https://www.youtube.com/embed/yLOM8R6lbzg" title="Studying White Noise | Focus on Homework, Test Prep, School | 10 Hours Study Sound" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/nMfPqeZjc2c" title="White Noise Black Screen | Sleep, Study, Focus | 10 Hours" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/lkkGlVWvkLk" title="Intense Study - 40Hz Gamma Binaural Beats to Increase Productivity and Focus" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/vLEek3I3wac" title="Accelerated Learning - Gamma Waves for Focus / Concentration / Memory - Binaural Beats - Focus Music" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <a href="https://www.youtube.com/results?search_query=white+noise+for+studying" class="see-more" target="_blank">For more like this...</a>
+          </div>
+        </details>
+        <details closed class="video-section-content">
+          <summary>Study Timer Videos</summary>
+          <div class="video-row">
+            <iframe src="https://www.youtube.com/embed/WIt8cNOMkwc" title="25 / 5  Pomodoro Timer - 2 hours study || No music - Study for dreams - Deep focus - Study timer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/gmkvbyo4SHY" title="50 / 10 Pomodoro Timer || Lofi music - 5 hours study - Study for dreams - Deep focus - Study timer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/9LxjiQ7H0lc" title="30 / 10  Pomodoro Timer - 3 hours study || No music - Study for dreams - Deep focus - Study timer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/VD9SbXbmkDQ" title="60 / 10  Pomodoro Timer  ||  No music - Study for dreams - Deep focus - Study timer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <a href="https://www.youtube.com/results?search_query=different+timers+for+studying" class="see-more" target="_blank">For more like this...</a>
+          </div>
+        </details>
+        <details closed class="video-section-content">
+          <summary>Music</summary>
+          <div class="video-row">
+            <iframe src="https://www.youtube.com/embed/_4kHxtiuML0" title="Focus Music for Work and Studying, Background Music for Concentration, Study Music" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/Exp5pEzkktY" title="Relaxing Jazz Instrumental Music &amp; Cozy Coffee Shop Ambience☕Smooth Jazz Music to Work, Study, Focus" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/sjkrrmBnpGE" title="Ambient Study Music To Concentrate - 4 Hours of Music for Studying, Concentration and Memory" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/Kv6iTI9HBSg" title="Work Music for Concentration - 12 Hours of Ambient Study Music to Concentrate #13" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <a href="https://www.youtube.com/results?search_query=music+for+studying" class="see-more" target="_blank">For more like this...</a>
+          </div>
+        </details>
+        <details closed class="video-section-content">
+          <summary>Miscellaneous Sounds</summary>
+          <div class="video-row">
+            <iframe src="https://www.youtube.com/embed/egFm6MHLvYk" title="Relaxing Fireplace - Perfect for Sleep &amp; Study - Amazing Crackling Sounds (NO MUSIC)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/6OmJqMUhdUQ" title="10 HOUR STUDY WITH ME⎢Background noise, 10 min Break, No music, Study with Merve" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/byZotMw2zb0" title="study with rory gilmore//aesthetic lofi music with pomodoro timer (gilmore girls edition)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/YQc4WT0yDH4" title="COZY Rainy Library with Fireplace | Videos made to study rather than sleep" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Code for the quotes section -->
+    <div id="quotes" class="container-quotes">
+      <h1>Pick-me-up Quotes</h1>
+      <div class="quotes-intro">
+        <p style="font-size: 18px">
+          When you're feeling unmotivated or just burnt out, click "Click Me!"
+          for a little pick me up or just some needed motivation!
+        </p>
+      </div>
+      <div class="btn-container">
+        <button id="motivationBtn">Click Me!</button>
+      </div>
+      <div class="quotes-output">
+        <p style="font-style: italic" id="output">Quotes Appear Here</p>
+      </div>
+    </div> 
+
+    <!-- Code for the footer -->
+    <footer>
+      <p>&copy; 2023 NoStress Studying</p>
+    </footer>
+
+    <script src="Javascript/notes.js"></script>
+    <script src="Javascript/quotes.js"></script>
+    <script src="Javascript/timers.js"></script>
+    <script src="Javascript/todo.js"></script>
+    <script src="Javascript/videos.js"></script>
+  </body>
+</html>
