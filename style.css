@@ -1,10 +1,73 @@
+/* Global CSS */
 :root {
   --green: #4caf50;
   --darker-green: #45a049;
   --light-grey: #f0f8ff;
 }
 
+.separator {
+  width: 80%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 16px auto;
+}
+
+/* CSS for custom alert */
+.custom-alert {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #4caf50; /* Success green color */
+  color: white;
+  padding: 1px 1px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.custom-alert.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#alert-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  max-width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  display: none;
+}
+
+.success-alert {
+  background-color: #28a745;
+  color: white;
+  border: 1px solid #155724;
+}
+
+.error-alert {
+  background-color: #dc3545;
+  color: white;
+  border: 1px solid #721c24;
+}
+
 /* Main CSS */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f0f8ff;
@@ -33,7 +96,8 @@ span {
 .container-todo,
 .container-notes,
 .container-videos,
-.container-quotes {
+.container-quotes,
+.container-sites {
   background-color: white;
   margin: 10px;
   padding: 10px 20px;
@@ -61,7 +125,12 @@ header {
 
 header h2 {
   margin: 10px;
-  padding: 0 20px; /* Adjusted to align better with the nav */
+  padding: 0 20px;
+}
+
+header h2:hover {
+  color:#000000;
+  transition: all 0.2s ease;
 }
 
 #logo {
@@ -85,6 +154,8 @@ nav ul li a {
   text-decoration: none;
   color: #ffffff;
   font-weight: bold;
+  transition: all 0.2s ease;
+  user-select: none;
 }
 
 nav ul li a:hover {
@@ -137,7 +208,7 @@ nav ul li a:hover {
   padding: 1px 2px;
   height: 50%;
   width: 2.5%;
-  font-size: 12px;
+  font-size: 15px;
   margin-right: 30px;
 }
 
@@ -164,6 +235,12 @@ nav ul li a:hover {
 #workSec,
 #restSec {
   margin-right: 30px;
+  font-size: 15px;
+}
+
+#workMin, 
+#restMin {
+  font-size: 15px;
 }
 
 .timer-display {
@@ -226,19 +303,42 @@ nav ul li a:hover {
   cursor: not-allowed;
 }
 
-/* CSS for To-do list and notes */
-.container {
+/* CSS for Notes */
+.toolbar {
   display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  padding-right: 100px;
 }
 
-/* Notes css */
-.container-notes,
-.container-todo {
-  width: 50%;
+.toolbar button {
+  background-color: var(--green);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.editor {
+  width: 100%;
+  height: 200px;
+  border: 1px solid var(--green);
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-y: auto;
+  outline: none;
 }
 
 .notes-btn-container {
   display: flex;
+  flex-direction: column;
+  padding-left: 10px;
 }
 
 .notes-btn-container button {
@@ -251,19 +351,33 @@ nav ul li a:hover {
   cursor: pointer;
   font-size: 20px;
   transition: background-color 0.3s;
+  width: 144px;
 }
 
 #lastUpdated {
   font-size: 13px;
+  padding-left: 20px;
 }
 
 .notes-btn-container p {
   font-size: 10px;
 }
 
-/* To do list css */
+.last-update-display {
+  display: flex;
+  flex-direction: row;
+}
+
+.textarea-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+/* To do list CSS */
 #new-todo {
-  width: calc(100% - 100px);
+  width: 60%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -271,6 +385,34 @@ nav ul li a:hover {
   font-size: 16px;
   box-sizing: border-box;
   display: inline-block;
+}
+
+.center-todo-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column-input {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.column-input label {
+  margin-bottom: 5px;
+}
+
+.center-todo-input h1 {
+  margin-left: 10px;
+  margin-right: 10px;
+  color: var(--green);
+}
+
+#todoDate {
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid #ccc;
 }
 
 .save-btn {
@@ -287,62 +429,105 @@ nav ul li a:hover {
   cursor: pointer;
   font-size: 16px;
   display: inline-block;
+  width: 80px;
 }
 
 #add-todo:hover {
   background-color: #218838;
 }
 
-/* To-Do List */
 #todo-list {
   list-style: none;
   padding: 0;
 }
 
-.todo-item {
+.todo-output {
   display: flex;
+  justify-content: center;
   align-items: center;
+  font-size: 18px;
+  color: #333;
+  min-height: 24px;
+  width: 100%;
+  margin-top: 20px;
+  flex-direction: column;
+}
+
+.todo-output-header {
+  display: flex;
   justify-content: space-between;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid #ddd;
+  width: 100%;
 }
 
-.todo-item:last-child {
-  border-bottom: none;
+.todo-output-header h3 {
+  flex: 1;
+  text-align: center;
+  margin: 0;
 }
 
-.todo-item span {
-  flex-grow: 1;
-  margin-left: 10px;
-  font-size: 16px;
-  word-wrap: break-word; /* Ensures words wrap when they are too long */
-  overflow-wrap: break-word; /* Ensures the text breaks properly */
+.todo-output-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
 }
 
-.todo-item input[type="checkbox"] {
-  margin-right: 10px;
-  transform: scale(1.2);
+.todo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
-.todo-item button {
-  padding: 5px 10px;
-  border: none;
-  background-color: #dc3545;
-  color: white;
-  border-radius: 4px;
+.todo-checkbox-div, .todo-name, .todo-date-added, .todo-due-date, .remove-todo {
+  flex: 1;
+  padding: 5px;
+  text-align: center;
+}
+
+.todo-checkbox-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remove-todo {
+  text-align: center;
+}
+
+.remove-btn {
   cursor: pointer;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
 }
 
-.todo-item button:hover {
-  background-color: #c82333;
+.remove-btn:hover {
+  background-color: #d32f2f;
 }
 
-.todo-item.completed span {
+.todo-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.todo-name.completed {
   text-decoration: line-through;
-  color: gray;
+  color: #888;
 }
 
-@media (max-width: 854px) {
+@media (max-width: 1621px) {
   .todo-date {
     display: none;
   }
@@ -369,22 +554,32 @@ textarea {
 
 .video-row {
   display: flex;
-  justify-content: flex-start;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+.more-details {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.see-more {
-  color: black;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  text-decoration: none;
+.more-details button {
+  background-color: var(--green);
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  margin: 5px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-left: 40px;
+  font-size: 18px;
+  transition: background-color 0.3s;
 }
 
-.see-more:hover {
-  color: var(--darker-green);
-  text-decoration: underline;
+.more-details button:hover {
+  background-color: var(--darker-green);
+  color: white;
+  
 }
 
 summary {
@@ -393,10 +588,277 @@ summary {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.video-section-content iframe {
+.video-row iframe {
   width: 20%;
   height: 200px;
   padding: 5px 10px;
+}
+
+.center-video-button {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.center-video-button label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-right: 8px;
+}
+
+.center-video-button .input-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 104%;
+}
+
+.center-video-button input {
+  flex: 1;
+  padding: 6px 8px;
+  font-size: 14px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  border-radius: 0;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s;
+  width: 200px;
+}
+
+.center-video-button input:focus,
+.center-video-button input:hover {
+  border-color: var(--green);
+  outline: none;
+}
+
+.center-video-button button {
+  padding: 10px 20px;
+  font-size: 20px;
+  border-radius: 4px;
+  align-self: center;
+}
+
+#video-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.video-container {
+  position: relative;
+  flex: 1 1 calc(50% - 30px);
+  max-width: 400px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-container iframe {
+  width: 80%;
+  max-width: 100%;
+}
+
+.responsive-iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+  border-radius: 10px;
+}
+
+.remove-button {
+  margin-top: 8px;
+  background-color: #f44336;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  background-color: #e53935;
+}
+
+@media screen and (max-width: 768px) {
+  .video-container {
+    flex: 1 1 100%;
+  }
+
+  .responsive-iframe {
+    height: 180px;
+  }
+}
+
+/* CSS for Sites */
+.center-site {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.site-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.site-name-container,
+.site-url-container {
+  flex: 1 1 calc(50% - 12px);
+  display: flex;
+  flex-direction: column;
+}
+
+.site-info label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.site-info input {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.site-info input:focus,
+.site-info input:hover {
+  border-color: var(--green);
+  outline: none;
+}
+
+.site-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.site-button-container button {
+  background-color: var(--green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.site-button-container button:hover {
+  background-color: #45a049;
+}
+
+@media screen and (max-width: 600px) {
+  .site-name-container,
+  .site-url-container {
+    flex: 1 1 100%;
+  }
+}
+
+.site-output {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  min-height: 24px;
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-output-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+  width: 100%;
+}
+
+.site-output-header h3 {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}
+
+.site-output-list {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 10px;
+  font-weight: bold;
+  width: 100%;
+}
+
+.site-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100%;
+}
+
+.site-name,
+.site-url,
+.remove-site {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.site-url a {
+  color: var(--green);
+  text-decoration: none;
+  font-weight: normal;
+}
+
+.site-url a:hover {
+  color: var(--darker-green);
+  text-decoration: underline;
+}
+
+.remove-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background-color: darkred;
+}
+.site-output-list .site-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.site-name,
+.site-url,
+.remove-site {
+  flex: 1;
+  text-align: center;
 }
 
 /* Quotes Generator CSS */
