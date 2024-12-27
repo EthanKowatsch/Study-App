@@ -1,76 +1,105 @@
-// Get references to DOM elements
-const notesInput = document.getElementById("notes-input");  
-const saveNotesBtn = document.getElementById("save-notes"); 
-const clearBtn = document.getElementById("clear-notes");    
-const notesMessage = document.getElementById("notes-message"); 
-const lastInput = document.getElementById("lastUpdated");   
-
-// Load notes from local storage
-let notes = localStorage.getItem("notes") || "";            
-// Set the textarea value to the retrieved notes
-notesInput.value = notes;                                   
-
-// Load last action timestamp from local storage
-let lastAction = localStorage.getItem("lastAction");        
-// If a last action time exists, display it in the lastInput element
-if (lastAction) {                                           
-  lastInput.textContent = `Last Action: ${lastAction}`;     
+// Function to format text inside the contenteditable div
+function formatText(command) {
+  document.execCommand(command, false, null);
 }
 
-// Event listener for the save button
-saveNotesBtn.addEventListener("click", () => {
-  // Get the current value of the notes input
-  notes = notesInput.value;                                 
-  // Save the notes to local storage
-  localStorage.setItem("notes", notes);                     
-  // Show a "Notes Saved" message and update the last action time
-  showMessage("Notes Saved.");                              
-});
-
-// Event listener for the clear button
-clearBtn.addEventListener("click", () => {
-  // Clear the notes input and reset the local variable
-  notes = notesInput.value = "";                            
-  // Save the cleared state to local storage
-  localStorage.setItem("notes", notes);                     
-  // Show a "Notes Cleared" message and update the last action time
-  showMessage("Notes Cleared.");                            
-});
-
-// Display a message and the last action time
-function showMessage(text) {
-  // Set the message text and make the message visible
-  notesMessage.textContent = text;                          
-  notesMessage.style.display = "block";                     
-
-  // Get the current date and time, format it, and update the lastInput element
-  const currentTime = formatDate(new Date());               
-  lastInput.textContent = `Last Action: ${currentTime}`;    
-  
-  // Save the current time to local storage
-  localStorage.setItem("lastAction", currentTime);          
-
-  // Hide the message after 2 seconds
-  setTimeout(function () {                                   
-    notesMessage.style.display = "none";                    
-  }, 2000);
+// Toggle between numbered list and plain text
+function toggleNumberedList() {
+  document.execCommand("insertOrderedList", false, null);
 }
 
-// Format the current date and time
+// Add behavior for pressing Enter
+const notesEditor = document.getElementById("notes-editor");
+
+// Load notes from localStorage when the page loads
+window.addEventListener("DOMContentLoaded", () => {
+  const savedNotes = localStorage.getItem("notes");
+  const lastAction = localStorage.getItem("lastAction");
+
+  if (savedNotes) {
+    notesEditor.innerHTML = savedNotes;
+  }
+
+  if (lastAction) {
+    document.getElementById("lastUpdated").textContent = `Last Action: ${lastAction}`;
+  }
+});
+
+// Event listener for save and clear
+document.getElementById("save-notes").addEventListener("click", () => {
+  const notes = notesEditor.innerHTML;
+  localStorage.setItem("notes", notes);
+  showAlert("Notes successfully saved.", "success");
+  updateLastAction();
+});
+
+document.getElementById("clear-notes").addEventListener("click", () => {
+  notesEditor.innerHTML = "";
+  localStorage.setItem("notes", "");
+  showAlert("Notes successfully cleared.", "error");
+  updateLastAction();
+});
+
+// Update the last action timestamp
+function updateLastAction() {
+  const currentTime = formatDate(new Date());
+  document.getElementById("lastUpdated").textContent = `Last Action: ${currentTime}`;
+  localStorage.setItem("lastAction", currentTime);
+}
+
+// Format date and time
 function formatDate(date) {
-  // Get hours and minutes, and determine AM/PM
-  const hours = date.getHours();                            
-  const minutes = date.getMinutes();                        
-  const ampm = hours >= 12 ? 'pm' : 'am';                   
-  const formattedHours = hours % 12 || 12;                  
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? "pm" : "am";
+  const formattedHours = hours % 12 || 12;
   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  
-  // Format the time as "hh:mm am/pm"
   const formattedTime = `${formattedHours}:${formattedMinutes} ${ampm}`;
-  
-  // Format the date as "YYYY-MM-DD" using local time
-  const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-
-  // Return the formatted time and date
-  return `${formattedTime} on ${formattedDate}`;            
+  const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  return `${formattedTime} on ${formattedDate}`;
 }
+
+// Function to show a custom alert with a color based on the type
+function showAlert(message, type = "success", duration = 2000) {
+  const alertBox = document.getElementById("custom-alert");
+  const alertMessage = document.getElementById("alert-message");
+
+  alertMessage.textContent = message;
+
+  if (type === "success") {
+    alertBox.style.backgroundColor = "#4caf50";
+    alertBox.style.color = "white";
+  } else if (type === "error") {
+    alertBox.style.backgroundColor = "#dc3545";
+    alertBox.style.color = "white";
+  }
+
+  alertBox.classList.remove("hidden");
+  alertBox.classList.add("show");
+
+  setTimeout(() => {
+    alertBox.classList.remove("show");
+    alertBox.classList.add("hidden");
+  }, duration);
+}
+
+// Add behavior for tab key to indent list items
+notesEditor.addEventListener("keydown", function (e) {
+  if (e.key === "Tab") {
+    e.preventDefault(); // Prevent default tab behavior
+    
+    // Get the current selection in the editor
+    const selection = window.getSelection();
+    const range = selection.getRangeAt(0);
+    const currentNode = range.startContainer;
+
+    // Only indent if the current node is a list item (dot jot)
+    if (currentNode.nodeName === "LI" && currentNode !== currentNode.closest("ol, ul").firstElementChild) {
+      // Add the tab (indent) by modifying the margin or padding of the list item
+      currentNode.style.marginLeft = "20px";
+    }
+  }
+});
+
+// Initial render when the page loads
+displaySites();
