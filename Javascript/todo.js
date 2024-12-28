@@ -1,3 +1,4 @@
+// Save dom elements
 const todoName = document.getElementById("new-todo");
 const todoDate = document.getElementById("todoDate");
 const addTodoBtn = document.getElementById("add-todo");
@@ -19,7 +20,7 @@ function getTodosFromLocalStorage() {
 // Function to display todos from local storage
 function displayTodos() {
   const todos = getTodosFromLocalStorage();
-  todoOutputList.innerHTML = ""; // Clear the list before re-rendering
+  todoOutputList.innerHTML = "";
 
   todos.forEach((todo, index) => {
     const todoRow = document.createElement("div");
@@ -76,7 +77,7 @@ function displayTodos() {
 // Function to toggle the completion of a todo item
 function toggleTodoCompletion(index) {
   const todos = getTodosFromLocalStorage();
-  todos[index].completed = !todos[index].completed; // Toggle the completion status
+  todos[index].completed = !todos[index].completed;
   localStorage.setItem("todos", JSON.stringify(todos));
   displayTodos();
 }
@@ -94,21 +95,25 @@ function removeTodoFromLocalStorage(index) {
 addTodoBtn.addEventListener("click", function () {
   const todoNameValue = todoName.value.trim();
   const todoDueDateValue = todoDate.value;
-  const today = new Date().toISOString().split("T")[0];
+  
+  // Get today's date, in local time, formatted as YYYY-MM-DD
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Set time to midnight to avoid time comparison issues
+  const todayString = today.toISOString().split("T")[0]; // Get the date in YYYY-MM-DD format
 
   if (!todoNameValue || !todoDueDateValue) {
     showAlert("Please enter both a to-do name and a due date.", "error");
     return;
   }
 
-  if (new Date(todoDueDateValue) < new Date(today)) {
+  if (new Date(todoDueDateValue) < new Date(todayString)) {
     showAlert("Please enter a valid due date (future date).", "error");
     return;
   }
 
   const newTodo = {
     name: todoNameValue,
-    dateAdded: today,
+    dateAdded: todayString,
     dueDate: todoDueDateValue,
     completed: false,
   };
